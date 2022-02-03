@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GUID 產生器</title>
+</head>
+
+<body>
+    <button id=gen>NewGuid</button>
+    <input type=text id=guid size=36 />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#gen').click(function() {
+            $.post('/newguid').done(function(guid) {
+                $('#guid').val(guid).select();
+                document.execCommand('copy');
+            });
+        })
+    </script>
+</body>
+
+</html>
