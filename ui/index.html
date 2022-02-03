@@ -16,7 +16,18 @@
                 $('#guid').val(guid).select();
                 document.execCommand('copy');
             });
-        })
+        });
+        var evtSrc = new EventSource('/sse');
+        var disConnCount = 0;
+        evtSrc.onmessage = function(e) { disConnCount = 0; };
+        var hdn = setInterval(function() {
+            disConnCount++;
+            if (disConnCount >= 5) {
+                clearInterval(hdn);               
+                evtSrc.close();
+                $('body').text('Disconnected');
+            }
+        }, 1000);
     </script>
 </body>
 
